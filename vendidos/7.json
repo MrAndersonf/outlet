@@ -1,0 +1,17 @@
+{
+    "data": "17/03/2020",
+    "itens": [{
+            "codigo": "2222222222222",
+            "quantidade": "2",
+            "unitario": "22.33",
+            "total": 44.66
+        },
+        {
+            "codigo": "1111111111111",
+            "quantidade": "13",
+            "unitario": "11.23",
+            "total": 145.99
+        }
+    ],
+    "pagamento": [{ "forma": "Dinheiro", "valor": "190.65" }]
+}

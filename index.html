@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <meta http-equiv="Content-Security-Policy" content="worker-src https: 'unsafe-eval'">
+    <title>Hering</title>
+</head>
+
+<body>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="geraNumeroDaVenda()">Vender
+                </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Cadastrar</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" onclick="AtualizaEstoque()">Estoque</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="false" onclick="AtualizaVendidos()">Vendidos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="fin-tab" data-toggle="tab" href="#fin" role="tab" aria-controls="fin" aria-selected="false">Financeiro</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <form class="m-2">
+                <div class="form-row">
+                    <div class="form-group col-md-1">
+                        <label for="n_venda">Nº venda</label>
+                        <input disabled id="n_venda" type="number" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="data_venda">Data</label>
+                        <input disabled id="data_venda" type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="codigo_produto_venda">Código de Barras</label>
+                        <input id="codigo_produto_venda" type="text" maxlength="13" minlength="13" class="form-control" onblur="CarregaProduto(this.value)">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="">Estoque</label>
+                        <input disabled id="estoque_venda" type="number" class="form-control">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="">Quantidade</label>
+                        <input id="qtd_venda" type="number" class="form-control" min="1" step="1" onfocus="QuantidadeDisponivel()" onblur="QuantidadeEscolhida(this.value)">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <label for="">Valor Unitário</label>
+                        <input disabled id="prc_venda" type="number" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="">Valor Total</label>
+                        <input disabled id="sub_total_item" type="number" class="form-control">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form group col-md-4">
+                        <input id="bt_add_prod" class="form-control btn-primary" type="button" value="Adicionar ao carrinho" onclick="event.preventDefault(); sacolaDeProdutos()">
+                    </div>
+                    <div class="form group col-md-4">
+                        <input id="bt_limpar_venda" class="form-control btn-danger" type="button" value="Limpar campos acima">
+                    </div>
+                    <div class="form group col-md-4">
+                        <input id="bt_salvar_venda" class="form-control btn-success" type="button" value="Finalizar pedido venda" onclick="finalizaVenda()">
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div id="dvData" class="m-2" style="height: 38vh;">
+                <table class="table table-sm table-bordered">
+                    <thead class="thead thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Valor Unitário</th>
+                            <th scope="col">Valor Total</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela_venda">
+
+                    </tbody>
+
+                </table>
+            </div>
+            <hr>
+            <footer>
+                <div>
+                    <div class="form-row m-2 mt-0 d-flex justify-content-between">
+                        <div class="form-group col-md-3">
+                            <label for="venda_forma_pagamento">Forma de Pagamento</label>
+                            <select id="venda_forma_pagamento" class="form-control" onchange="selecionaFormaDePagamento(this.value)">
+                                    <option value="" selected>Selecione</option>
+                                    <option value="Dinheiro">Dinheiro</option>
+                                    <option value="Debito">Débito</option>
+                                    <option value="Credito">Crédito</option>
+                                    <option value="Outra">Outra</option>
+                                </select>
+                        </div>
+                        <div class="form group col-md-2">
+                            <label for="">Dinheiro</label>
+                            <input required id="pagamentoDinheiro" type="number" class="form-control">
+                        </div>
+                        <div class="form group col-md-2 ">
+                            <label for="">Débito</label>
+                            <input required id="pagamentoDebito" type="number" class="form-control">
+                        </div>
+                        <div class="form group col-md-2">
+                            <label for="pagamentoCredito">Crédito</label>
+                            <input required id="pagamentoCredito" type="number" class="form-control">
+                        </div>
+                        <div class="form group col-md-2">
+                            <label for="" style="font-weight: bolder;">Total Geral</label>
+                            <input disabled id="total_geral" type="number" class="form-control" style="font-weight: bolder;">
+                        </div>
+                    </div>
+                    <div class="form-row ml-2">
+                        <div class="form group col-md-2">
+                            <button class="btn btn-success ml-0" onclick="pagarFinalizar()">Pagar e
+                                    Finalizar
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <p id="validacao" class="d-flex justify-content-center"></p>
+            <div class="row ml-5">
+                <div id="validar_campo_codigo" class="form-group col-12">
+                    <label for="">Código de Barras</label>
+                    <input required id="codigo_cadastro" maxlength="13" minlength="13" type="text" class="form-control col-10" onblur="checaExistencia(this.value)">
+                </div>
+                <div class="form-group col-12">
+                    <label for="">Quantidade</label>
+                    <input required id="quantidade_cadastro" type="number" class="form-control col-10" min="1" step="1" onblur="validaQuantidade(this.value)">
+                </div>
+                <div class="form-group col-12">
+                    <label for=" ">Valor</label>
+                    <input required id="preco_cadastro" type="number" class="form-control col-10" min="1" step="0.01" onblur="validaValor(this.value)">
+                </div>
+                <div class="form group col-12">
+                    <button id="bt_cadastrar" class="btn btn-primary col-10 mb-2" onclick="event.preventDefault();salvarProduto()">
+                            Cadastrar
+                        </button>
+                    <button id="bt_limpar" class="btn btn-danger col-10 ">Limpar</i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Vendidos</th>
+                        <th scope="col">Sado Atual</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela_produtos">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Unitário</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="vendido_tabela">
+
+                </tbody>
+                <tfoot>
+                    <td colspan="5" style="text-align: right">Total Geral</td>
+                    <td><span id="vendidos_total_geral"></span></td>
+                </tfoot>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="fin" role="tabpanel" aria-labelledby="fin-tab">
+            <div class="row ml-5 mt-4">
+                <div class="form-group col-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Data</span>
+                        </div>
+                        <input id="fin_data_compra" class="form-control" type="text" onblur="validaDataPesquisa(this.value)">
+                    </div>
+                </div>
+                <div class="form-group col-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Forma de Pagamento</span>
+                        </div>
+                        <select class="form-control custom-select" required id="fin_forma_pagamento">
+                                <option value="" selected>Todos</option>
+                                <option value="Dinheiro">Dinheiro</option>
+                                <option value="Débito">Débito</option>
+                                <option value="Crédito">Crédito</option>
+                                <option value="Outra">Outra</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="form-group col-2">
+                    <button id="btn_fin_buscar" class="btn btn-primary" onclick="filtrarVendidos()">Buscar
+                            Selecionados</button>
+                </div>
+                <div class="form-group col-2">
+                    <button id="btnExport" id="btn_fin_buscar" class="btn btn-primary">Exportar Excel</button>
+                </div>
+            </div>
+            <div id="dvData">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="noExl">
+                            <th scope="col">#</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Unitário</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Pagamento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fin_tabela">
+
+                    </tbody>
+                    <tfoot>
+                        <td colspan="6" style="text-align: right">Total Geral</td>
+                        <td><span id="fin_total_geral"></span></td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.$ = window.jquery = require("jquery");
+        window.popper = require("popper.js");
+        require("bootstrap");
+        require("jquery-mask-plugin");
+    </script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

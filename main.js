@@ -1,6 +1,117 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, Menu, ipcMain, BrowserWindow } = require('electron')
 const path = require('path')
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+
+const isMac = process.platform === 'darwin'
+
+const template = [
+  // { role: 'appMenu' }
+  ...(isMac ? [{
+    label: app.name,
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+  // { role: 'fileMenu' }
+  {
+    label: 'Menu',
+    submenu: [
+      {
+        label: 'Produtos',
+        submenu: [
+          {
+            label: "Novo",
+            click: async () => product()
+              
+          }]
+      }
+    ]
+  },
+  // { role: 'editMenu' }
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      ...(isMac ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' },
+        { type: 'separator' },
+        {
+          label: 'Speech',
+          submenu: [
+            { role: 'startSpeaking' },
+            { role: 'stopSpeaking' }
+          ]
+        }
+      ] : [
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ])
+    ]
+  },
+  // { role: 'viewMenu' }
+  {
+    label: 'View',
+    submenu: [
+      { role: 'reload' },
+      { role: 'forceReload' },
+      { role: 'toggleDevTools' },
+      { type: 'separator' },
+      { role: 'resetZoom' },
+      { role: 'zoomIn' },
+      { role: 'zoomOut' },
+      { type: 'separator' },
+      { role: 'togglefullscreen' }
+    ]
+  },
+  // { role: 'windowMenu' }
+  {
+    label: 'Window',
+    submenu: [
+      { role: 'minimize' },
+      { role: 'zoom' },
+      ...(isMac ? [
+        { type: 'separator' },
+        { role: 'front' },
+        { type: 'separator' },
+        { role: 'window' }
+      ] : [
+        { role: 'close' }
+      ])
+    ]
+  },
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'Learn More',
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://electronjs.org')
+        }
+      }
+    ]
+  }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
+
 let dados = ""
 
 require('electron-reload')(__dirname, {
@@ -10,17 +121,34 @@ require('electron-reload')(__dirname, {
 function createWindow() {
   let win = new BrowserWindow({
     width: 1300,
-   
-    height: 625,
-   
-    frame: false,
-    resizable:false,
+
+    height: 660,
+
+    frame: true,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: false
     }
   })
   win.loadFile('home.html')
+}
+
+
+function product() {
+  let win = new BrowserWindow({
+    width: 1300,
+
+    height: 660,
+
+    frame: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      allowRunningInsecureContent: false
+    }
+  })
+  win.loadFile('cadastro.html')
 }
 app.whenReady().then(createWindow)
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+
+  <meta http-equiv="Content-Security-Policy" content="worker-src https: 'unsafe-eval'">
+
+  <title></title>
+</head>
+
+<body style="background-color: #C8C8C8;">
+  <div style="display: flex; justify-content: center; align-items: center;">
+
+    <div style="display: flex; width: 48%; height: 100%;">
+      <div class="row ml-5">
+        <div id="validar_campo_codigo" class="form-group col-12">
+          <label for="">Código de Barras</label>
+          <input required id="codigo_cadastro" maxlength="13" minlength="13" type="text" class="form-control col-10"
+            onblur="checaExistencia(this.value)">
+        </div>
+        <div class="form-group col-12">
+          <label for="">Descrição</label>
+          <input required id="quantidade_cadastro" type="number" class="form-control col-10" min="1" step="1" onblur="validaQuantidade(this.value)">
+        </div>
+        <div class="form-group col-12">
+          <label for="">Quantidade</label>
+          <input required id="quantidade_cadastro" type="number" class="form-control col-10" min="1" step="1" onblur="validaQuantidade(this.value)">
+        </div>
+        <div class="form-group col-12">
+          <label for=" ">Valor</label>
+          <input required id="preco_cadastro" type="number" class="form-control col-10" min="1" step="0.01" onblur="validaValor(this.value)">
+        </div>
+        <div class="form-group col-12">
+          <label for=" ">Selecione imagem</label>
+          <div style="display: flex; flex-direction: row;">
+            <button>Selecionar</button><input required id="preco_cadastro" type="number" class="form-control col-10" min="1" step="0.01" onblur="validaValor(this.value)">
+          </div>
+        </div>
+        <div class="form group col-12">
+          <button id="bt_cadastrar" class="btn btn-primary col-10 mb-2" onclick="event.preventDefault();salvarProduto()">
+            Cadastrar
+          </button>
+          <button id="bt_limpar" class="btn btn-danger col-10 ">Limpar</i></button>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; width: 48%; height: 95vh;">
+      <img src="./select.svg" alt="" style="width: 100%;height: 100%;">
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <script>
+    window.$ = window.jquery = require("jquery");
+    window.popper = require("popper.js");
+    require("bootstrap");
+    require("jquery-mask-plugin");
+  </script>
+  <script src="./index.js"></script>
+</body>
+
+</html>

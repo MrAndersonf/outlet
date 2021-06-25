@@ -1,4 +1,5 @@
 const { ipcRenderer } = require("electron");
+const { dialog } = require("electron").remote;
 const path = require('path')
 const objProduct = require(path.resolve(__dirname + '/classes/product.js'))
 const data = require('./dados.js')
@@ -13,6 +14,15 @@ let valorStatus = "";
 let quantidadeStatus = "";
 let itensSacola = []
 
+console.log(dialog.showOpenDialogSync( {
+  properties: ['openFile'],
+  filters: [
+    { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+    { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+    { name: 'Custom File Type', extensions: ['as'] },
+    { name: 'All Files', extensions: ['*'] }
+  ]
+}))
 
 let invalidos = [];
 let validos = [];
@@ -87,7 +97,7 @@ function loadProduct(codigo) {
   let product = objProduct.find(codigo);
   price.val(product.price)
   stock.val(product.stock);
-  image.attr('src',product.image);
+  image.attr('src', product.image);
   description.val(product.description)
 }
 

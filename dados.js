@@ -1,12 +1,15 @@
-const jsp = require('jsonfile-promised')
+
 const js = require('jsonfile')
 const fs = require('fs');
 const ipc_dados = require("electron").ipcRenderer;
+const pth = require('path')
+
+
 
 module.exports = {
     SalvarProduto(local, item) {
-        let filePath = __dirname + '/data/' + local + '.json';
-        if (!fs.existsSync(filePath)) {
+        let filePath = pth.resolve(__dirname + '/data/' + local + '.json');
+        if (fs.existsSync(filePath)) {
             js.writeFileSync(filePath, item)
         }
     },
@@ -24,11 +27,12 @@ module.exports = {
         }
     },
     produtos() {
-        let arquivos = fs.readdirSync(__dirname + '/data/');
-        let cursos = arquivos.map((arquivo) => {
-            return arquivo.substr(0, arquivo.lastIndexOf('.'));
-        });
-        return cursos
+        let products = fs.readdirSync(__dirname + '/products/');
+        return products.map(item => item.substr(0, item.lastIndexOf('.')));
+    },
+    save(directory, item) {
+        let path = __dirname + `/${directory}/` + item.code + '.json';
+        js.writeFileSync(path, item)        
     },
     vendas() {
         let arquivos = fs.readdirSync(__dirname + '/vendidos/');
@@ -45,9 +49,8 @@ module.exports = {
         let resultado = js.readFileSync(__dirname + "/vendidos/" + codigo + ".json");
         return resultado;
     },
-    RetornaProduto(codigo) {
-        let produto = js.readFileSync(__dirname + "\\data\\" + codigo + '.json');
-        return produto;
+    findByCode(directory,code) {
+        return js.readFileSync(__dirname + `/${directory}/` + code + '.json');
     },
     RetornaVenda(codigo) {
         return js.readFileSync(__dirname + "\\vendidos\\" + codigo + '.json');

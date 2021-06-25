@@ -1,8 +1,8 @@
 const { ipcRenderer } = require("electron");
 const { dialog } = require("electron").remote;
 const path = require('path')
-const objProduct = require(path.resolve(__dirname + '/classes/product.js'))
-const data = require('./dados.js')
+const objProduct = require(path.resolve(__dirname + '/../../'+'Classes/product.js'))
+const data = require(path.resolve(__dirname+'/../../Database/index.js'))
 
 
 let stock = $("#order_stock");

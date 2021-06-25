@@ -10,13 +10,10 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@linways/table-to-excel": "^1.0.4",
         "bootstrap": "^4.4.1",
         "electron-reload": "^1.5.0",
         "jquery": "^3.4.1",
-        "jquery-mask-plugin": "^1.14.16",
         "jsonfile": "^6.0.1",
-        "jsonfile-promised": "0.0.1",
         "popper.js": "^1.16.1"
     },
     "devDependencies": {

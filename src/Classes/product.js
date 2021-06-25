@@ -1,5 +1,5 @@
 const path = require('path')
-const database = require(path.resolve(__dirname + '/../dados.js'))
+const database = require(path.resolve(__dirname + '/../Database/index.js'))
 class product {
     constructor(description, code, price, stock, image) {
         this._code = code,

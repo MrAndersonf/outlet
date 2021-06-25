@@ -118,12 +118,10 @@ require('electron-reload')(__dirname, {
   electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
 });
 
-function createWindow() {
+function mainWindow() {
   let win = new BrowserWindow({
     width: 1300,
-
     height: 660,
-
     frame: true,
     resizable: false,
     webPreferences: {
@@ -131,16 +129,14 @@ function createWindow() {
       allowRunningInsecureContent: false
     }
   })
-  win.loadFile('home.html')
+  win.loadFile('./src/Screens/Home/index.html')
 }
 
 
 function product() {
   let win = new BrowserWindow({
     width: 1300,
-
     height: 660,
-
     frame: true,
     resizable: false,
     webPreferences: {
@@ -150,7 +146,7 @@ function product() {
   })
   win.loadFile('cadastro.html')
 }
-app.whenReady().then(createWindow)
+app.whenReady().then(mainWindow)
 
 let atualiza = null;
 ipcMain.on("atualiza_item", (event, args) => {

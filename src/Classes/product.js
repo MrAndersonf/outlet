@@ -1,6 +1,6 @@
 const path = require('path')
 const database = require(path.resolve(__dirname + '/../Database/index.js'))
-class product {
+class Product {
     constructor(description, code, price, stock, image) {
         this._code = code,
             this._price = price,
@@ -65,5 +65,5 @@ class product {
     }
 }
 
-module.exports = product
+module.exports = Product
 

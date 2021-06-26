@@ -1,10 +1,14 @@
 const { ipcRenderer } = require("electron");
 const { dialog } = require("electron").remote;
 const path = require('path')
-const objProduct = require(path.resolve(__dirname + '/../../'+'Classes/product.js'))
-const data = require(path.resolve(__dirname+'/../../Database/index.js'))
+const Product = require(path.resolve(__dirname + '/../../' + 'Classes/Product.js'))
+const Sell = require(path.resolve(__dirname + '/../../' + 'Classes/Sell.js'))
+const data = require(path.resolve(__dirname + '/../../Database/index.js'))
+const Util = require(path.resolve(__dirname + '/../../Util/index.js'))
 
-
+let id = $("#order_id");
+let today = $("#order_date")
+let code = $("#order_code");
 let stock = $("#order_stock");
 let price = $("#order_price");
 let image = $("#order_image");
@@ -29,27 +33,12 @@ let validos = [];
 let msg = "";
 let preco_buscado = 0;
 
-function toCurrency(valueToCast) {
-  return parseFloat(valueToCast).toLocaleString('pt-BR', { maximumFractionDigits: 2, currency: "BRL", style: "currency" })
-}
 
-window.onload = function () {
-  $("#order_date").val(currentDate());
-  geraNumeroDaVenda();
-  currentDate();
-  $("#venda_forma_pagamento").attr("disabled", true);
-  let dinheiro = $("#pagamentoDinheiro")
-  let credito = $("#pagamentoCredito")
-  let debito = $("#pagamentoDebito")
-  dinheiro.val("")
-  credito.val("")
-  debito.val("")
-  debito.attr("disabled", true);
-  credito.attr("disabled", true);
-  dinheiro.attr("disabled", true);
-  $("#codigo_produto_venda").focus()
 
-}
+$(() => {
+  id.val(Sell.next())
+  today.val(currentDate());
+});
 
 function AtualizaEstoque() {
   $("#vendido_tabela").empty()
@@ -81,8 +70,8 @@ function AtualizaEstoque() {
 
 
 function geraNumeroDaVenda() {
- 
-  $("#order_id").val(data.ticket('sells'));
+
+
 }
 
 
@@ -94,7 +83,7 @@ function currentDate() {
 }
 
 function loadProduct(codigo) {
-  let product = objProduct.find(codigo);
+  let product = Product.find(codigo);
   price.val(product.price)
   stock.val(product.stock);
   image.attr('src', product.image);
@@ -195,7 +184,7 @@ function selecionaFormaDePagamento(forma) {
 
 
 function sacolaDeProdutos() {
-  let cod_prod = $("#codigo_produto_venda")
+  let cod_prod = $("").val()
   let qt_prod = $("#order_quantity").val();
   let pr_venda = $("#order_price").val();
   let forma = $("#venda_forma_pagamento").val()
@@ -210,11 +199,11 @@ function sacolaDeProdutos() {
   let s = `
             <tr style="opacity:0.85;display: flex;align-items: center">
                 <td scope="row" class="table_id">${itensSacola.length}</td>
-                <td class="table_code">${cod_prod.val()}</td>
+                <td class="table_code">${cod_prod}</td>
                 <td class="table_description">Camiseta básica branca</td>
                 <td class="table_quantity">${qt_prod}</td>
-                <td class="table_price">${toCurrency(pr_venda)}</td>
-                <td class="table_total">${toCurrency(subtotal)}</td>
+                <td class="table_price">${Util.toCurrency(pr_venda)}</td>
+                <td class="table_total">${Util.toCurrency(subtotal)}</td>
                 <td class="table_min"><div class="min_container"><img class="miniature"
 								src="./camiseta.jpg" alt=""></div></td>
                 <td class="table_action">

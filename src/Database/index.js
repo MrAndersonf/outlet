@@ -55,12 +55,8 @@ module.exports = {
     RetornaVenda(codigo) {
         return js.readFileSync(__dirname + "\\vendidos\\" + codigo + '.json');
     },
-    numeroDeVendas() {
-        let registros = fs.readdirSync(__dirname + '/vendidos/');
-        let vendas = registros.map((arquivo) => {
-            return arquivo.substr(0, arquivo.lastIndexOf('.'));
-        });
-        return vendas
+    ticket(directory) {
+        return fs.readdirSync(__dirname + `/${directory}/`).length + 1;
     },
     AtualizaProduto(Local, item) {
         let filePath = __dirname + '/data/' + Local + '.json';

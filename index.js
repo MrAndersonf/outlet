@@ -1,8 +1,8 @@
 const { ipcRenderer } = require("electron");
 const { dialog } = require("electron").remote;
 const path = require('path')
-const objProduct = require(path.resolve(__dirname + '/../../'+'Classes/product.js'))
-const data = require(path.resolve(__dirname+'/../../Database/index.js'))
+const objProduct = require(path.resolve(__dirname + '/classes/product.js'))
+const data = require('./dados.js')
 
 
 let stock = $("#order_stock");
@@ -14,7 +14,7 @@ let valorStatus = "";
 let quantidadeStatus = "";
 let itensSacola = []
 
-// console.log(dialog.showOpenDialogSync( {
+// dialog.showOpenDialogSync( {
 //   properties: ['openFile'],
 //   filters: [
 //     { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
@@ -22,7 +22,10 @@ let itensSacola = []
 //     { name: 'Custom File Type', extensions: ['as'] },
 //     { name: 'All Files', extensions: ['*'] }
 //   ]
-// }))
+// })
+
+
+data.ticket('sells');
 
 let invalidos = [];
 let validos = [];
@@ -33,7 +36,7 @@ function toCurrency(valueToCast) {
   return parseFloat(valueToCast).toLocaleString('pt-BR', { maximumFractionDigits: 2, currency: "BRL", style: "currency" })
 }
 
-window.onload = function () {
+$(document).on('load',()=>{
   $("#order_date").val(currentDate());
   geraNumeroDaVenda();
   currentDate();
@@ -49,7 +52,7 @@ window.onload = function () {
   dinheiro.attr("disabled", true);
   $("#codigo_produto_venda").focus()
 
-}
+});
 
 function AtualizaEstoque() {
   $("#vendido_tabela").empty()
@@ -81,8 +84,8 @@ function AtualizaEstoque() {
 
 
 function geraNumeroDaVenda() {
- 
-  $("#order_id").val(data.ticket('sells'));
+  let proximaVenda = data.ticket('sells');
+  $("#order_id").val((proximaVenda.length) + 1);
 }
 
 

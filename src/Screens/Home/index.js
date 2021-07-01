@@ -2,9 +2,10 @@ const { ipcRenderer } = require("electron");
 const { dialog } = require("electron").remote;
 const path = require('path')
 const Product = require(path.resolve(__dirname + '/../../' + 'Classes/Product.js'))
-const Sell = require(path.resolve(__dirname + '/../../' + 'Classes/Sell.js'))
-const data = require(path.resolve(__dirname + '/../../Database/index.js'))
 const Util = require(path.resolve(__dirname + '/../../Util/index.js'))
+const data = require(path.resolve(__dirname + '/../../Database/index.js'))
+const Sell = require(path.resolve(__dirname + '/../../' + 'Classes/Sell.js'))
+const Order = require(path.resolve(__dirname + '/../../' + 'Classes/Order.js'))
 
 let id = $("#order_id");
 let today = $("#order_date")
@@ -12,32 +13,21 @@ let code = $("#order_code");
 let stock = $("#order_stock");
 let price = $("#order_price");
 let image = $("#order_image");
+let cart = $("#tabela_venda")
+let quantity = $("#order_quantity");
+let unmasked_price = $("#unmasked_price")
 let description = $("#order_description")
-let codigoStatus = "";
-let valorStatus = "";
-let quantidadeStatus = "";
+let generalTotal = $("#order_check_value")
+
+
 let itensSacola = []
-
-// console.log(dialog.showOpenDialogSync( {
-//   properties: ['openFile'],
-//   filters: [
-//     { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-//     { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
-//     { name: 'Custom File Type', extensions: ['as'] },
-//     { name: 'All Files', extensions: ['*'] }
-//   ]
-// }))
-
-let invalidos = [];
-let validos = [];
-let msg = "";
-let preco_buscado = 0;
-
+let cartItems = new Order()
 
 
 $(() => {
   id.val(Sell.next())
-  today.val(currentDate());
+  today.val(Util.currentDate());
+  $("#exampleModal").modal('show')
 });
 
 function AtualizaEstoque() {
@@ -55,12 +45,12 @@ function AtualizaEstoque() {
     total += current.total;
     let s = `
             <tr>
-                <th scope="row">${index + 1}</th>
-                <td>${current.data}</td>
-                <td>${current.codigo}</td>
-                <td>${current.quantidade}</td>
-                <td>${vendidosPorCodigo(current.codigo)}</td>
-                <td>${current.quantidade - vendidosPorCodigo(current.codigo)}</td>            
+              <th scope="row">${index + 1}</th>
+              <td>${current.data}</td>
+              <td>${current.codigo}</td>
+              <td>${current.quantidade}</td>
+              <td>${code}</td>
+              <td>${current.quantidade - vendidosPorCodigo(current.codigo)}</td>            
             </tr>`
     $("#tabela_produtos").append(s)
 
@@ -69,22 +59,10 @@ function AtualizaEstoque() {
 }
 
 
-function geraNumeroDaVenda() {
-
-
-}
-
-
-function currentDate() {
-  let data = new Date();
-  return data
-    .toLocaleDateString('pt-BR')
-    .slice(0, 10)
-}
-
-function loadProduct(codigo) {
-  let product = Product.find(codigo);
-  price.val(product.price)
+function loadProduct(code) {
+  let product = Product.find(code);
+  unmasked_price.val(product.price)
+  price.val(Util.toCurrency(product.price))
   stock.val(product.stock);
   image.attr('src', product.image);
   description.val(product.description)
@@ -151,12 +129,13 @@ function saldoSacola(quantidade) {
     $("#order_quantity_saldo").val("");
     Notificar("Alerta", "A soma dos itens excede o estoque total")
   } else {
-    let sub = $("#order_quantity").val() * $("#order_price").val();
-    $("#order_subtotal").val(parseFloat(sub).toFixed(2))
+
+    let sub = $("#order_quantity").val() * unmasked_price.val();
+    $("#order_subtotal").val(Util.toCurrency(sub))
   }
 }
 
-function selecionaFormaDePagamento(forma) {
+function meanOfPayment(forma) {
   if (forma == "Dinheiro") {
     SelecioneDinheiro()
     return;
@@ -183,40 +162,17 @@ function selecionaFormaDePagamento(forma) {
 
 
 
-function sacolaDeProdutos() {
-  let cod_prod = $("").val()
-  let qt_prod = $("#order_quantity").val();
-  let pr_venda = $("#order_price").val();
-  let forma = $("#venda_forma_pagamento").val()
-  let subtotal = qt_prod * pr_venda
-  itensSacola.push({
-    codigo: cod_prod.val(),
-    quantidade: qt_prod,
-    unitario: pr_venda,
-    total: subtotal,
-  })
-  console.log(itensSacola)
-  let s = `
-            <tr style="opacity:0.85;display: flex;align-items: center">
-                <td scope="row" class="table_id">${itensSacola.length}</td>
-                <td class="table_code">${cod_prod}</td>
-                <td class="table_description">Camiseta básica branca</td>
-                <td class="table_quantity">${qt_prod}</td>
-                <td class="table_price">${Util.toCurrency(pr_venda)}</td>
-                <td class="table_total">${Util.toCurrency(subtotal)}</td>
-                <td class="table_min"><div class="min_container"><img class="miniature"
-								src="./camiseta.jpg" alt=""></div></td>
-                <td class="table_action">
-                    <div>
-                        <input type="image" src="./icon/edit-solid.svg" alt="" style="width: 30px" tooltip="Editar">
-                        <input type="image" src="./icon/trash-alt-solid.svg" alt="" style="width: 24px" tooltip="Editar">
-                    </div> 
-                </td>
-            </tr>`
-  $("#tabela_venda").append(s)
+
+function insertIntoCart() {
+  let product = Product.find(code.val())
+  let units = quantity.val()
+  cartItems.insert({ product, units })
+  generalTotal.val(cartItems.total());
+  cart.children().remove()
+  cart.append(cartItems.table())
   limpaFormulario();
-  let valor = calculaTotalSacola();
-  $("#order_subtotal").val(valor);
+ 
+ 
 }
 
 function calculaTotalSacola() {
@@ -852,3 +808,13 @@ function buscaDataFormaDePagamento(dia, forma) {
     })
   })
 }
+
+// console.log(dialog.showOpenDialogSync( {
+//   properties: ['openFile'],
+//   filters: [
+//     { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+//     { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+//     { name: 'Custom File Type', extensions: ['as'] },
+//     { name: 'All Files', extensions: ['*'] }
+//   ]
+// }))

@@ -120,10 +120,11 @@ require('electron-reload')(__dirname, {
 
 function mainWindow() {
   let win = new BrowserWindow({
+   minWidth: 1300,
     width: 1300,
+    minHeight: 710,
     height: 660,
     frame: true,
-    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: false
@@ -135,10 +136,11 @@ function mainWindow() {
 
 function product() {
   let win = new BrowserWindow({
+     minWidth: 1300,
     width: 1300,
+    minHeight: 660,
     height: 660,
     frame: true,
-    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: false

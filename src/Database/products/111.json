@@ -1,1 +1,7 @@
-{"code":"111","stock":30,"price":11.24,"description":"Tshisrt","image":"C:/Users/Compras/Downloads/bobina.png"}
+{
+  "code": "111",
+  "stock": 30,
+  "price": 11.24,
+  "description": "Tshisrt",
+  "image": "../../assets/images/regata.jpg"
+}

@@ -29,9 +29,39 @@ const template = [
         submenu: [
           {
             label: "Novo",
-            click: async () => product()
-              
-          }]
+            click: async () => product()              
+          },
+          {
+            label: "Lista",
+            click: async () => product()              
+          },
+        ]
+      },
+      {
+        label: 'Clientes',
+        submenu: [
+          {
+            label: "Novo",
+            click: async () => product()              
+          },
+          {
+            label: "Lista",
+            click: async () => product()              
+          },
+        ]
+      },
+      {
+        label: 'Financeiro',
+        submenu: [
+          {
+            label: "Receitas",
+            click: async () => product()              
+          },
+          {
+            label: "Despesas",
+            click: async () => product()              
+          },
+        ]
       }
     ]
   },
@@ -120,10 +150,11 @@ require('electron-reload')(__dirname, {
 
 function mainWindow() {
   let win = new BrowserWindow({
+   minWidth: 1300,
     width: 1300,
+    minHeight: 710,
     height: 660,
     frame: true,
-    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: false
@@ -135,16 +166,17 @@ function mainWindow() {
 
 function product() {
   let win = new BrowserWindow({
+     minWidth: 1300,
     width: 1300,
+    minHeight: 660,
     height: 660,
     frame: true,
-    resizable: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: false
     }
   })
-  win.loadFile('cadastro.html')
+  win.loadFile('./src/Screens/Product/index.html')
 }
 app.whenReady().then(mainWindow)
 

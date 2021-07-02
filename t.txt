@@ -1,0 +1,99 @@
+<footer class="payment_section" >
+      <div>
+        <button onclick="pagarFinalizar()" class="btn_pay">
+          Pagar
+        </button>
+        <input 
+          disabled  
+          type="text" 
+          class="order_check" 
+          id="order_check_value"/>
+      </div>
+      <div class="checkout_section">
+        <div class="payment_methods">
+          <label for="venda_forma_pagamento">
+            Pagamento
+          </label>
+          <select 
+            class="payments"
+            id="venda_forma_pagamento" 
+            onchange="meanOfPayment(this.value)">
+              <option 
+                value="select"  
+                selected>
+                Selecione 
+              </option>
+              <option 
+                value="money">
+                Dinheiro
+              </option>
+              <option 
+                value="debit">
+                Débito
+              </option>
+              <option   
+                value="credit">
+                Crédito
+              </option>
+              <option   
+                value="check">
+                Cheque
+              </option>
+              <option 
+                value="other">
+                Outra
+              </option>
+          </select>
+        </div>
+        <div class="payment_methods">
+          <label for="">
+            Dinheiro
+          </label>
+          <input 
+            required 
+            id="pagamentoDinheiro" 
+            type="number" 
+            class="payments">
+        </div>
+        <div class="payment_methods">
+          <label for="">
+            Débito
+          </label>
+          <input 
+            required 
+            id="pagamentoDebito" 
+            type="number" 
+            class="payments">
+        </div>
+        <div class="payment_methods">
+          <label for="pagamentoCredito">
+            Crédito
+          </label>
+          <input 
+            required 
+            id="pagamentoCredito" 
+            type="number" 
+            class="payments">
+        </div>
+        <div class="payment_methods">
+          <label for="pagamentoCredito">
+            Cheque
+          </label>
+          <input 
+            required 
+            id="pagamentoCredito" 
+            type="number" 
+            class="payments">
+        </div>
+        <div class="payment_methods">
+          <label for="" class="label_total">
+            Total Geral
+          </label>
+          <input 
+            disabled 
+            id="total_geral" 
+            type="number" 
+            class="payments_total">
+        </div>
+      </div>
+    </footer>

@@ -168,14 +168,14 @@ function insertIntoCart() {
   let product = Product.find(code.val())
   let units = quantity.val()
   cartItems.insert({ product, units })
-  
-  
+
+
   cart.children().remove()
   cart.append(cartItems.table())
   limpaFormulario();
   generalTotal.val(cartItems.total());
- 
- 
+
+
 }
 
 function calculaTotalSacola() {
@@ -813,12 +813,15 @@ function buscaDataFormaDePagamento(dia, forma) {
   })
 }
 
-// console.log(dialog.showOpenDialogSync( {
-//   properties: ['openFile'],
-//   filters: [
-//     { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
-//     { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
-//     { name: 'Custom File Type', extensions: ['as'] },
-//     { name: 'All Files', extensions: ['*'] }
-//   ]
-// }))
+function selectProductImage() {
+  let file = dialog.showOpenDialogSync({
+    properties: ['openFile'],
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+      { name: 'Movies', extensions: ['mkv', 'avi', 'mp4'] },
+      { name: 'Custom File Type', extensions: ['as'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  })
+  console.log(file)
+}

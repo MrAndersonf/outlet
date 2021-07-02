@@ -2,11 +2,11 @@ const path = require('path')
 const database = require(path.resolve(__dirname + '/../Database/index.js'))
 
 class Sell {
-  constructor(client, product, amount, payment) {
+  constructor(client, order, amount, payment) {
+    this._amount = amount;
     this._client = client;
     this._date = new Date();
-    this._product = product;
-    this._amount = amount;
+    this._order = order;
     this._payment = payment;
   }
 
@@ -18,8 +18,8 @@ class Sell {
     return this._date;
   }
 
-  get product() {
-    return this._product;
+  get order() {
+    return this._order;
   }
 
   get amount() {
@@ -34,8 +34,8 @@ class Sell {
     this._client = client
   }
 
-  set product(product) {
-    this._product = product
+  set order(order) {
+    this._order = order
   }
 
   set amount(amount) {
@@ -51,10 +51,11 @@ class Sell {
       {
         client: this._client,
         date: this._date,
-        product: this._product,
+        order: this._order,
         amount: this._amount,
         payment: this._payment
-      })
+      }
+    )
   }
 
   static find(code) {

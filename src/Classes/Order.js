@@ -50,6 +50,7 @@ class Order {
       <div>
         <input 
           type="image" 
+<<<<<<< HEAD
           src="../../assets/icon/edit.svg" 
           alt="" 
           style="width: 24px" tooltip="Editar">
@@ -58,6 +59,16 @@ class Order {
           src="../../assets/icon/trash.svg" 
           alt="" 
           style="width: 18px" 
+=======
+          src="./icon/edit-solid.svg" 
+          alt="" 
+          style="width: 30px" tooltip="Editar">
+        <input 
+          type="image" 
+          src="./icon/trash-alt-solid.svg" 
+          alt="" 
+          style="width: 24px" 
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
           tooltip="Editar">
       </div> 
     </td>

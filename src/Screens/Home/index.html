@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="../../../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="table.css" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="worker-src https: 'unsafe-eval'"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <title></title>
+  </head>
 
+<<<<<<< HEAD
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,11 +54,45 @@
         <div class="modal-body">
           <div style="display: flex; flex-direction: row">
             <select name="" id="" style="
+=======
+  <body>
+    <input type="hidden" id="unmasked_price" />
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #666666">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: #fff">
+              Selecionar cliente
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div style="display: flex; flex-direction: row">
+              <select
+                name=""
+                id=""
+                style="
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
                   width: 25%;
                   height: 40px;
                   border: none;
                   border-right: 1px solid #000;
                   background-color: #f3f3f3;
+<<<<<<< HEAD
                 ">
               <option value="">Selecione</option>
               <option value="">Nome</option>
@@ -44,6 +100,19 @@
               <option value="">CNPJ</option>
             </select>
             <input list="browsers" type="text" style="
+=======
+                "
+              >
+                <option value="">Selecione</option>
+                <option value="">Nome</option>
+                <option value="">CPF</option>
+                <option value="">CNPJ</option>
+              </select>
+              <input
+                list="browsers"
+                type="text"
+                style="
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
                   width: 75%;
                   height: 40px;
                   outline: none;
@@ -51,6 +120,7 @@
                   border-bottom-right-radius: 10px;
                   border-top-right-radius: 10px;
                   background-color: #f3f3f3;
+<<<<<<< HEAD
                 " />
             <datalist id="browsers">
               <option value="Internet Explorer"></option>
@@ -201,3 +271,240 @@
 </body>
 
 </html>
+=======
+                "
+              />
+              <datalist id="browsers">
+                <option value="Internet Explorer"></option>
+                <option value="Firefox"></option>
+                <option value="Google Chrome"></option>
+                <option value="Opera"></option>
+                <option value="Safari"></option>
+              </datalist>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="exam"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #666666">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: #fff">
+              Selecionar cliente
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <footer class="payment_section">
+              <div>
+                <button onclick="pagarFinalizar()" class="btn_pay">
+                  Pagar
+                </button>
+                <input
+                  disabled
+                  type="text"
+                  class="order_check"
+                  id="order_check_value"
+                />
+              </div>
+              <div class="checkout_section">
+                <div class="payment_methods">
+                  <label for="venda_forma_pagamento"> Pagamento </label>
+                  <select
+                    class="payments"
+                    id="venda_forma_pagamento"
+                    onchange="meanOfPayment(this.value)"
+                  >
+                    <option value="select" selected>Selecione</option>
+                    <option value="money">Dinheiro</option>
+                    <option value="debit">Débito</option>
+                    <option value="credit">Crédito</option>
+                    <option value="check">Cheque</option>
+                    <option value="other">Outra</option>
+                  </select>
+                </div>
+                <div class="payment_methods">
+                  <label for=""> Dinheiro </label>
+                  <input
+                    required
+                    id="pagamentoDinheiro"
+                    type="number"
+                    class="payments"
+                  />
+                </div>
+                <div class="payment_methods">
+                  <label for=""> Débito </label>
+                  <input
+                    required
+                    id="pagamentoDebito"
+                    type="number"
+                    class="payments"
+                  />
+                </div>
+                <div class="payment_methods">
+                  <label for="pagamentoCredito"> Crédito </label>
+                  <input
+                    required
+                    id="pagamentoCredito"
+                    type="number"
+                    class="payments"
+                  />
+                </div>
+                <div class="payment_methods">
+                  <label for="pagamentoCredito"> Cheque </label>
+                  <input
+                    required
+                    id="pagamentoCredito"
+                    type="number"
+                    class="payments"
+                  />
+                </div>
+                <div class="payment_methods">
+                  <label for="" class="label_total"> Total Geral </label>
+                  <input
+                    disabled
+                    id="total_geral"
+                    type="number"
+                    class="payments_total"
+                  />
+                </div>
+              </div>
+            </footer>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="product">
+        <div class="input_section">
+          <div class="input_code">
+            <label for="order_code"> Código </label>
+            <input
+              id="order_code"
+              type="text"
+              maxlength="13"
+              minlength="13"
+              class="code_input"
+              onblur="loadProduct(this.value)"
+            />
+          </div>
+          <div class="input_stock">
+            <label for="stock_input"> Estoque </label>
+            <input
+              disabled
+              id="order_stock"
+              type="number"
+              class="stock_input"
+              step="1"
+            />
+          </div>
+          <div class="input_quantity">
+            <label for="order_quantity"> Unidades </label>
+            <input
+              id="order_quantity"
+              type="number"
+              class="quantity_input"
+              min="1"
+              step="1"
+              onfocus="QuantidadeDisponivel()"
+              onblur="QuantidadeEscolhida(this.value)"
+            />
+          </div>
+          <div class="input_price">
+            <label for="order_price"> Preço </label>
+            <input
+              disabled
+              id="order_price"
+              type="text"
+              class="price_input"
+              step="0.01"
+            />
+          </div>
+          <div class="input_total">
+            <label for="order_subtotal"> Total </label>
+            <input
+              disabled
+              type="text"
+              id="order_subtotal"
+              class="total_input"
+            />
+          </div>
+          <div class="description">
+            <label for="">Descrição</label>
+            <input disabled type="text" class="title" id="order_description" />
+          </div>
+        </div>
+        <div class="product_picture">
+          <img
+            id="order_image"
+            alt=""
+            class="picture"
+            src="../../assets/images/regata.jpg"
+          />
+          <div class="btn">
+            <button style="width: 60px;" onclick="insertIntoCart()">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="order">
+        <div class="list_title">Produtos selecionados</div>
+        <div class="table_area">
+          <table>
+            <thead>
+              <tr>
+                <th class="table_id">#</th>
+                <th class="table_code">Código</th>
+                <th class="table_description">Descrição</th>
+                <th class="table_quantity">Peças</th>
+                <th class="table_price">Preço</th>
+                <th class="table_total">Total</th>
+                <th class="table_min">Miniatura</th>
+                <th class="table_action">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabela_venda"></tbody>
+          </table>
+        </div>
+        <div style="display: flex; width: 100%; justify-content: flex-end">
+          <button onclick="pagarFinalizar()" class="btn_pay">Pagar</button>
+          <input
+            disabled
+            type="text"
+            class="order_check"
+            id="order_check_value"
+          />
+        </div>
+      </div>
+    </div>
+    <script>
+      window.$ = window.jquery = require("jquery");
+      window.popper = require("popper.js");
+      require("bootstrap");
+      require("jquery-mask-plugin");
+    </script>
+    <script src="index.js"></script>
+  </body>
+</html>
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a

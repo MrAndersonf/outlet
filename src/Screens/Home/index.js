@@ -28,7 +28,10 @@ $(() => {
   id.val(Sell.next())
   today.val(Util.currentDate());
   $("#exampleModal").modal('show')
+<<<<<<< HEAD
   generalTotal.val("11")
+=======
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
 });
 
 function AtualizaEstoque() {
@@ -168,12 +171,19 @@ function insertIntoCart() {
   let product = Product.find(code.val())
   let units = quantity.val()
   cartItems.insert({ product, units })
+<<<<<<< HEAD
   
   
   cart.children().remove()
   cart.append(cartItems.table())
   limpaFormulario();
   generalTotal.val(cartItems.total());
+=======
+  generalTotal.val(cartItems.total());
+  cart.children().remove()
+  cart.append(cartItems.table())
+  limpaFormulario();
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
  
  
 }

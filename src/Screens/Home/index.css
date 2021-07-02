@@ -13,6 +13,7 @@ body {
   width: 100%;
   height: 100vh;
   align-items: center;
+<<<<<<< HEAD
   justify-content: center;
   background-color: #8bc6ec;
   background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
@@ -223,6 +224,218 @@ body {
 .list_title {
   display: flex;
   justify-content: center;
+=======
+  justify-content: center;
+  background-color: #8bc6ec;
+  background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+}
+
+.product {
+  display: flex;
+  width: 22%;
+  height: 100vh;
+  flex-direction: column;
+  margin-left: 5px;
+}
+
+.input_section {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start; 
+  padding-left: 3px;
+  flex-direction: column;
+}
+
+.input_client {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.client_input {
+  height: 40px;
+  color: black;
+  font-weight: 600;
+
+  text-align: center;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_id {
+  display: flex;
+  flex-direction: column;
+  width: 22%;
+}
+
+.id_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_date {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.date_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_code {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.code_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_stock {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.stock_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_quantity {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+.quantity_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_price {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.price_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.input_total {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.total_input {
+  height: 40px;
+  text-align: center;
+
+  border-radius: 10px;
+  color: black;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #f3f3f3;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  height: 100%;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  height: 100vh;
+  margin-right: 25px;
+  border: 1px solid #f3f3f3;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 1px;
+}
+
+.product_picture {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-left: 3px;
+}
+
+.picture {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
+}
+
+.cart {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 30px;
+}
+
+.list_title {
+  display: flex;
+  justify-content: center;
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
   align-items: center;
   color: #fff;
   font-size: 23px;
@@ -291,6 +504,7 @@ label {
   box-shadow: -3px 2px rgba(0, 0, 0, 0.45);
 }
 
+<<<<<<< HEAD
 .btn_insert {
   display: flex;
   justify-content: center;
@@ -306,6 +520,16 @@ label {
   border-radius: 30px;
   outline: none;
   
+=======
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid black;
+  border-radius: 30px;
+>>>>>>> eb79f88f47c18edc1f028a8d56e57f2f09ba6a5a
 
  
 }
